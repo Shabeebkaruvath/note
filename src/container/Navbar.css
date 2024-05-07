@@ -1,0 +1,22 @@
+/* Custom styles for the navigation bar */
+.navbar {
+    background-color: #f8f9fa; /* Set your desired background color */
+    border-bottom: 1px solid #dee2e6; /* Add a subtle border at the bottom */
+    width: 100%;
+  }
+  
+  .navbar-brand {
+    font-weight: bold; /* Customize the brand font weight */
+  }
+  
+  .navbar-nav .nav-link {
+    color: #333; /* Set the link color */
+    font-weight: 500; /* Customize the link font weight */
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #007bff; /* Change link color on hover */
+  }
+  
+  /* Optional: Adjust spacing or other styles as needed */
+  
