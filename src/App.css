@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+ 
 }
 
 .App-logo {
@@ -14,7 +15,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #031526;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +36,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+.linko{
+  color: black;
+}
+.linko:hover{
+  color: rgb(91, 176, 12);
+  text-decoration: none;
 }

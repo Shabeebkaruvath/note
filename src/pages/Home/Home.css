@@ -1,0 +1,43 @@
+ .Home{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   margin: 0;
+ }
+ .task-app {
+   text-align: center;
+   height: 100vh;
+   display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+ 
+ form {
+   margin-bottom: 20px;
+ }
+ 
+ ul {
+   list-style-type: none;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: flex-start;
+
+ }
+ 
+ li {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ 
+ li input[type="checkbox"] {
+   margin-right: 10px;
+ }
+ 
+ li button {
+   margin-left: 10px;
+ }

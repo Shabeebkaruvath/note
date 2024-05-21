@@ -2,6 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import React, { useState } from "react";
 import swal from 'sweetalert';
+import {Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -62,9 +63,19 @@ const Login = () => {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary btn-block">
+
+            <div className="d-flex justify-content-between align-items-center" style={{flexDirection:'column'}}>
+              <span style={{ color: 'blue', cursor: 'pointer' }}>
+                <Link to="/signin" className="linko">Dont't have an account?</Link>
+              </span>
+              
+              <button type="submit" className="btn btn-dark btn-block" style={{marginTop: '20px'}}>
               Login
             </button>
+            </div>
+
+            
+            
           </form>
         </div>
       </div>

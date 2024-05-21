@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import './Signin.css';
 import swal from 'sweetalert';
+import {Link } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ const Signup = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      swal("Create Account successfully","", "success");
+      swal("Created Account successfully","", "success");
       // User is signed up, you can redirect or perform additional actions here
     } catch (err) {
       setError(err.message || 'An error occurred during sign-up');
@@ -79,11 +80,11 @@ const Signup = () => {
             {error && <div className="alert alert-danger">{error}</div>}
             <div className="d-flex justify-content-between align-items-center">
               <span style={{ color: 'blue', cursor: 'pointer' }}>
-                <u>Already have an account?</u>
+                <Link className='linko' to="/login">Already have an account?</Link>
               </span>
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-dark"
                 disabled={isLoading}
               >
                 {isLoading ? 'Signing up...' : 'Sign Up'}

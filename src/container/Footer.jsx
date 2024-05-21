@@ -6,7 +6,7 @@ function Footer() {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            <p>&copy; 2023 Your Company Name</p>
+            <p>&copy; 2023 Prometheus.</p>
           </div>
           <div className="col-md-6 text-md-right">
             <a href="https://github.com/" className="text-white mr-3">
