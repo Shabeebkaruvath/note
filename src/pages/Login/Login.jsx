@@ -21,11 +21,15 @@ const Login = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      swal("Login successfully","", "success");
+      swal("Login successfully", "", "success");
       // Redirect or show a success message
     } catch (error) {
-      console.error("Login error:", error);
-      // Show an error message
+      if (error.code === "auth/wrong-password") {
+        swal("Error", "Incorrect password", "error");
+      } else {
+        console.error("Login error:", error);
+        swal("Error", "An error occurred during login", "error");
+      }
     }
   };
 

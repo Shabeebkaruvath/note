@@ -1,3 +1,4 @@
+/* Sign In Container */
 .signin-container {
   display: flex;
   justify-content: center;
@@ -9,6 +10,8 @@
   width: 400px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 20px;
 }
 
 .card-title {
@@ -25,6 +28,7 @@
   border-color: #0062cc;
 }
 
+/* Sign Up Container */
 .signup-container {
   display: flex;
   justify-content: center;
@@ -35,4 +39,17 @@
 .signup-card {
   max-width: 400px;
   width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  .signin-card,
+  .signup-card {
+    width: 90%;
+    padding: 15px;
+  }
 }

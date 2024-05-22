@@ -9,10 +9,10 @@ function Footer() {
             <p>&copy; 2023 Prometheus.</p>
           </div>
           <div className="col-md-6 text-md-right">
-            <a href="https://github.com/" className="text-white mr-3">
+            <a href=" " className="text-white mr-3">
               Privacy Policy
             </a>
-            <a href="https://github.com/" className="text-white">
+            <a href=" " className="text-white">
               Terms of Service
             </a>
           </div>

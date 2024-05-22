@@ -1,12 +1,41 @@
+/* Base styles */
 body {
   margin: 0;
   font-family: "Kode Mono", monospace;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
+  line-height: 1.6; /* Added for better readability */
+  padding: 20px; /* Added padding to prevent content from touching edges */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background-color: #f5f5f5; /* Added background for better visibility */
+  padding: 2px 4px; /* Added padding for better readability */
+  border-radius: 4px; /* Rounded corners for a modern look */
+  font-size: 1em; /* Set base font size for code */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px; /* Adjust font size for medium screens */
+    padding: 15px; /* Adjust padding for medium screens */
+  }
+
+  code {
+    font-size: 0.9em; /* Adjust font size for code */
+  }
+}
+
+@media (max-width: 576px) {
+  body {
+    font-size: 12px; /* Further adjust font size for small screens */
+    padding: 10px; /* Further adjust padding for small screens */
+  }
+
+  code {
+    font-size: 0.85em; /* Further adjust font size for code */
+  }
 }

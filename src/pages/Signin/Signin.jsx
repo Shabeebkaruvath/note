@@ -15,25 +15,28 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError(null);
-
+  
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-
+  
     setIsLoading(true);
-
+  
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      swal("Created Account successfully","", "success");
+      swal("Created Account successfully", "", "success");
       // User is signed up, you can redirect or perform additional actions here
     } catch (err) {
-      setError(err.message || 'An error occurred during sign-up');
+      if (err.code === 'auth/weak-password') {
+        setError('Password should be at least 6 characters');
+      } else {
+        setError(err.message || 'An error occurred during sign-up');
+      }
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <div className="signup-container">
       <div className="card signup-card">

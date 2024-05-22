@@ -26,7 +26,7 @@ const App = () => {
         <div >
           <Navbar />
           <div className="row justify-content-center">
-            <div className="col-md-8">
+         
               {!user && (
                 <>
                   <Login/>
@@ -39,7 +39,7 @@ const App = () => {
                   </>
                 )
               }
-            </div>
+             
           </div>
           <Footer />
         </div>

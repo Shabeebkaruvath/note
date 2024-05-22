@@ -1,70 +1,76 @@
-import React, { useState } from 'react';
-import './Home.css'; // Importing CSS for styling
+import React, { useState } from "react";
+import "./Home.css";
+
 
 const Home = () => {
-  // State to store the tasks
-  const [tasks, setTasks] = useState([]);
-  const [taskDescription, setTaskDescription] = useState('');
+  const [taskList, setTaskList] = useState([]);
+  const [taskInput, setTaskInput] = useState("");
 
-  // Function to render the task list
-  const renderTaskList = () => {
-    return tasks.map((task, index) => (
-      <li key={index}>
+  const renderTasks = () => {
+    return taskList.map((task, index) => (
+      <li key={index} className="task-item">
         <input
           type="checkbox"
           checked={task.completed}
-          onChange={() => {
-            const newTasks = [...tasks];
-            newTasks[index].completed = !newTasks[index].completed;
-            setTasks(newTasks);
-          }}
+          onChange={() => toggleTaskStatus(index)}
+          className="task-checkbox"
         />
-        <span style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+        <span
+          style={{ textDecoration: task.completed ? "line-through" : "none" }}
+          className="task-description"
+        >
           {task.description}
         </span>
-        <button onClick={() => {
-          setTasks(tasks.filter((_, i) => i !== index));
-        }}>
+        <button onClick={() => deleteTask(index)} className="task-delete-btn">
           Delete
         </button>
       </li>
     ));
   };
 
-  // Function to add a new task
   const addTask = (description) => {
-    const newTask = {
-      description,
-      completed: false,
-    };
-    setTasks([...tasks, newTask]);
+    const newTask = { description, completed: false };
+    setTaskList([...taskList, newTask]);
   };
 
-  // Event handler for form submission
+  const toggleTaskStatus = (index) => {
+    const newTaskList = [...taskList];
+    newTaskList[index].completed = !newTaskList[index].completed;
+    setTaskList(newTaskList);
+  };
+
+  const deleteTask = (index) => {
+    setTaskList(taskList.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (taskDescription.trim()) {
-      addTask(taskDescription.trim());
-      setTaskDescription('');
+    if (taskInput.trim()) {
+      addTask(taskInput.trim());
+      setTaskInput("");
     }
   };
 
   return (
-    <div className="task-app">
-      <h1>Task List</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="task-manager-container">
+      <h1 className="task-manager-title">Task Manager</h1>
+      <form onSubmit={handleSubmit} className="task-form">
         <input
           type="text"
-          value={taskDescription}
-          onChange={(e) => setTaskDescription(e.target.value)}
+          value={taskInput}
+          onChange={(e) => setTaskInput(e.target.value)}
           placeholder="Add a new task"
+          className="task-input"
         />
-        <button type="submit">Add Task</button>
+        <button type="submit" className="task-submit-btn">
+          Add Task
+        </button>
       </form>
-      <ul id="task-list">
-        {renderTaskList()}
+      <ul id="task-list" className="task-list">
+        {renderTasks()}
       </ul>
     </div>
   );
 };
+
 export default Home;
