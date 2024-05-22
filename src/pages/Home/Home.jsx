@@ -1,46 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Home.css";
-
+import { collection, addDoc,deleteDoc,updateDoc,doc, query,onSnapshot } from "firebase/firestore";
+import { db } from "../firebase"; // Assuming you have a db instance initialized
+import { useAuth } from "../../AuthContext";
 
 const Home = () => {
+  const { currentUser } = useAuth(); // Retrieve current user from AuthContext
   const [taskList, setTaskList] = useState([]);
   const [taskInput, setTaskInput] = useState("");
 
-  const renderTasks = () => {
-    return taskList.map((task, index) => (
-      <li key={index} className="task-item">
-        <input
-          type="checkbox"
-          checked={task.completed}
-          onChange={() => toggleTaskStatus(index)}
-          className="task-checkbox"
-        />
-        <span
-          style={{ textDecoration: task.completed ? "line-through" : "none" }}
-          className="task-description"
-        >
-          {task.description}
-        </span>
-        <button onClick={() => deleteTask(index)} className="task-delete-btn">
-          Delete
-        </button>
-      </li>
-    ));
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      query(collection(db, `users/${currentUser.uid}/tasks`)), // Query user-specific tasks collection
+      (snapshot) => {
+        const tasks = [];
+        snapshot.forEach((doc) => {
+          tasks.push({ id: doc.id, ...doc.data() });
+        });
+        setTaskList(tasks);
+      },
+      (error) => {
+        console.error("Error fetching tasks: ", error);
+      }
+    );
+
+    return () => unsubscribe();
+  }, [currentUser]); // Subscribe to changes in currentUser
+
+  const addTask = async (description) => {
+    try {
+      await addDoc(collection(db, `users/${currentUser.uid}/tasks`), { description, completed: false });
+      console.log("Task added for the current user.");
+    } catch (error) {
+      console.error("Error adding task: ", error);
+    }
   };
 
-  const addTask = (description) => {
-    const newTask = { description, completed: false };
-    setTaskList([...taskList, newTask]);
+  const toggleTaskStatus = async (taskId, completed) => {
+    try {
+      await updateDoc(doc(db, `users/${currentUser.uid}/tasks`, taskId), { completed: !completed });
+      console.log("Task status updated for the current user.");
+    } catch (error) {
+      console.error("Error updating task status: ", error);
+    }
   };
 
-  const toggleTaskStatus = (index) => {
-    const newTaskList = [...taskList];
-    newTaskList[index].completed = !newTaskList[index].completed;
-    setTaskList(newTaskList);
-  };
-
-  const deleteTask = (index) => {
-    setTaskList(taskList.filter((_, i) => i !== index));
+  const deleteTask = async (taskId) => {
+    try {
+      await deleteDoc(doc(db, `users/${currentUser.uid}/tasks`, taskId));
+      console.log("Task deleted for the current user.");
+    } catch (error) {
+      console.error("Error deleting task: ", error);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -66,8 +77,23 @@ const Home = () => {
           Add Task
         </button>
       </form>
-      <ul id="task-list" className="task-list">
-        {renderTasks()}
+      <ul className="task-list">
+        {taskList.map((task) => (
+          <li key={task.id} className="task-item">
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => toggleTaskStatus(task.id, task.completed)}
+              className="task-checkbox"
+            />
+            <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+              {task.description}
+            </span>
+            <button onClick={() => deleteTask(task.id)} className="task-delete-btn">
+              Delete
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

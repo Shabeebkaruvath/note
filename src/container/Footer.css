@@ -1,4 +1,8 @@
 /* Footer styles */
+.footer{
+  bottom: 0;
+  position: fixed;
+}
 .bg-dark {
     background-color: #000000;
   }

@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAilhViLyouj2lhtDxsynpvX9Pt97sgDLA',
@@ -13,5 +14,26 @@ const firebaseConfig = {
 
 const app = firebase.initializeApp(firebaseConfig);
 const auth = app.auth();
+const db = app.firestore();
+// Function to create a new task for the current user
+const addTaskForCurrentUser = async (description) => {
+  const currentUser = auth.currentUser;
+  if (currentUser) {
+    const userId = currentUser.uid;
+    try {
+      await db.collection(`users/${userId}/tasks`).add({
+        description,
+        completed: false
+      });
+      console.log("Task added for the current user.");
+    } catch (error) {
+      console.error("Error adding task for the current user:", error);
+    }
+  } else {
+    console.error("No user is currently authenticated.");
+  }
+};
 
+export { addTaskForCurrentUser };
+export { db };
 export { auth };

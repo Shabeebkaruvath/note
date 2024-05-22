@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import './Signin.css';
 import swal from 'sweetalert';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -15,14 +15,14 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError(null);
-  
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-  
+
     setIsLoading(true);
-  
+
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       swal("Created Account successfully", "", "success");
@@ -30,6 +30,8 @@ const Signup = () => {
     } catch (err) {
       if (err.code === 'auth/weak-password') {
         setError('Password should be at least 6 characters');
+      } else if (err.code === 'auth/email-already-in-use') {
+        setError('This email is already in use');
       } else {
         setError(err.message || 'An error occurred during sign-up');
       }
@@ -37,13 +39,13 @@ const Signup = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="signup-container">
       <div className="card signup-card">
         <div className="card-body">
           <h1 className="card-title text-center mb-4">Sign Up</h1>
           <form onSubmit={handleSignup}>
-            
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input

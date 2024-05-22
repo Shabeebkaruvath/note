@@ -25,7 +25,7 @@ const App = () => {
       element: (
         <div >
           <Navbar />
-          <div className="row justify-content-center">
+          <div className="row justify-content-center" style={{height:'650px'}}>
          
               {!user && (
                 <>
