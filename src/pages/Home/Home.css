@@ -1,4 +1,4 @@
-/* Task Manager Styles */
+/* General Styles */
 .task-manager-container {
   max-width: 600px;
   width: 90%;
@@ -20,28 +20,27 @@
 /* Form Styles */
 .task-form {
   display: flex;
-  margin-bottom: 20px;
+  flex-direction: column; /* Changed to column for better responsiveness */
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .task-input {
-  flex: 1 1;
-  padding: 20px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  height: 60px;
+  margin-bottom: 10px; /* Added margin bottom for spacing */
 }
 
 .task-submit-btn {
-  padding: 10px 20px;
+  padding: 10px;
   background-color: #4caf50;
   color: #fff;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  margin-left: 10px;
 }
 
 .task-submit-btn:hover {
@@ -52,16 +51,18 @@
 .task-list {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 20px;
   width: 100%;
+  max-height: 390px; /* Adjust max-height according to your layout */
+  overflow-y: auto; /* Add vertical scrolling */
 }
 
 .task-item {
   display: flex;
-  align-items: flex-start; /* Changed from center */
+  align-items: center;
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ccc;
+  word-wrap: break-word; /* Added to prevent long words from overflowing */
 }
 
 .task-item:last-child {
@@ -69,15 +70,10 @@
 }
 
 .task-checkbox {
-  margin-right: 10px;
-  align-self: center; /* Added to vertically center the checkbox */
+  margin-right: 20px;
+  transform: scale(1.8);
 }
 
-.task-description {
-  flex-grow: 1;
-  word-break: break-word; /* Added to allow word breaking */
-  overflow: hidden; /* Removed text-overflow: ellipsis; */
-}
 
 .task-delete-btn {
   background-color: #f44336;
@@ -87,19 +83,22 @@
   padding: 5px 10px;
   font-size: 14px;
   cursor: pointer;
-  align-self: center; /* Added to vertically center the button */
 }
 
 .task-delete-btn:hover {
   background-color: #d32f2f;
 }
-input.task-checkbox{
 
-  transform: scale(2.5);
+.task-description {
+  flex-grow: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: large;
+  padding-right: 20px;
 
 }
 
-/* Media Queries */
+/* Responsive Design */
 @media (max-width: 480px) {
   .task-manager-container {
     padding: 10px;
@@ -114,6 +113,22 @@ input.task-checkbox{
   }
 
   .task-submit-btn {
+    width: 100%;
     margin-left: 0;
+  }
+
+  .task-item {
+    flex-direction: row;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+  }
+
+  .task-checkbox {
+    margin-bottom: 10px;
+  }
+
+  .task-delete-btn {
+    align-self: flex-end;
   }
 }

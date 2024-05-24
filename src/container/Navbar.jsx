@@ -1,15 +1,15 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-
-import "./Navbar.css";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
 import profile from "../media/profile.png";
 import home from "../media/home.png";
+import "./Navbar.css";
 
 function Navbar() {
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -22,19 +22,12 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      // Optionally, you can redirect the user or perform additional actions after successful logout
     } catch (error) {
       console.error("Logout error:", error);
-      // Handle logout error
     }
   };
 
-  const classOne = isNavCollapsed
-    ? "navbar-collapse collapse"
-    : "navbar-collapse collapse show";
-  const classTwo = isNavCollapsed
-    ? "navbar-toggler navbar-toggler-right collapsed"
-    : "navbar-toggler navbar-toggler-right";
+  const navClass = isNavCollapsed ? "nav-menu collapsed" : "nav-menu show";
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,38 +37,37 @@ function Navbar() {
         </a>
         <button
           onClick={handleNavCollapse}
-          className={`${classTwo}`}
+          className="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
           aria-controls="navbarNav"
-          aria-expanded="false"
+          aria-expanded={!isNavCollapsed}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
         {user && (
-          <>
-            <div className={`${classOne}`} id="navbarNav">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <a className="nav-link" href="/">
-                    <img src={home} alt="" className="img" />
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/">
-                    <img src={profile} alt="" className="img" />
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="logout-btn" href="/" onClick={handleLogout}>
-                    Logout
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </>
+          <div className={navClass} id="navbarNav">
+            <button className="close-btn" onClick={handleNavCollapse}>
+              X
+            </button>
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  <img src={home} alt="Home" className="img" />
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/">
+                  <img src={profile} alt="Profile" className="img" />
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="logout-btn" href="/" onClick={handleLogout}>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
         )}
       </div>
     </nav>

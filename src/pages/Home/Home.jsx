@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
-import { collection, addDoc,deleteDoc,updateDoc,doc, query,onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../firebase"; // Assuming you have a db instance initialized
 import { useAuth } from "../../AuthContext";
 
@@ -29,7 +37,10 @@ const Home = () => {
 
   const addTask = async (description) => {
     try {
-      await addDoc(collection(db, `users/${currentUser.uid}/tasks`), { description, completed: false });
+      await addDoc(collection(db, `users/${currentUser.uid}/tasks`), {
+        description,
+        completed: false,
+      });
       console.log("Task added for the current user.");
     } catch (error) {
       console.error("Error adding task: ", error);
@@ -38,7 +49,9 @@ const Home = () => {
 
   const toggleTaskStatus = async (taskId, completed) => {
     try {
-      await updateDoc(doc(db, `users/${currentUser.uid}/tasks`, taskId), { completed: !completed });
+      await updateDoc(doc(db, `users/${currentUser.uid}/tasks`, taskId), {
+        completed: !completed,
+      });
       console.log("Task status updated for the current user.");
     } catch (error) {
       console.error("Error updating task status: ", error);
@@ -86,10 +99,19 @@ const Home = () => {
               onChange={() => toggleTaskStatus(task.id, task.completed)}
               className="task-checkbox"
             />
-            <span style={{ textDecoration: task.completed ? "line-through" : "none" ,fontSize:'large'}}>
+            <span
+              className="task-description"
+              style={{
+                textDecoration: task.completed ? "line-through" : "none",
+              }}
+            >
               {task.description}
             </span>
-            <button onClick={() => deleteTask(task.id)} className="task-delete-btn">
+
+            <button
+              onClick={() => deleteTask(task.id)}
+              className="task-delete-btn"
+            >
               Delete
             </button>
           </li>
