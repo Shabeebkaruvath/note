@@ -93,6 +93,11 @@
 .task-delete-btn:hover {
   background-color: #d32f2f;
 }
+input.task-checkbox{
+
+  transform: scale(2.5);
+
+}
 
 /* Media Queries */
 @media (max-width: 480px) {

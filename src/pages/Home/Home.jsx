@@ -86,7 +86,7 @@ const Home = () => {
               onChange={() => toggleTaskStatus(task.id, task.completed)}
               className="task-checkbox"
             />
-            <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+            <span style={{ textDecoration: task.completed ? "line-through" : "none" ,fontSize:'large'}}>
               {task.description}
             </span>
             <button onClick={() => deleteTask(task.id)} className="task-delete-btn">
